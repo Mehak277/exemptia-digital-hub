@@ -5,10 +5,10 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="mt-20 border-t border-border bg-section">
-      <div className="container-page grid gap-10 py-14 md:grid-cols-4">
-        <div className="md:col-span-2">
+      <div className="container-page grid gap-12 py-16 lg:grid-cols-5 lg:gap-8">
+        <div className="lg:col-span-2 lg:pr-8">
           <Link to="/" className="flex items-center gap-2">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary font-heading text-lg font-bold text-primary-foreground">E</span>
+            <img src="/logo.png" alt="Exemptia Digital" className="h-10 w-10 rounded-full object-cover" />
             <span className="font-heading text-xl font-bold tracking-tight">
               Exemptia<span className="text-primary"> Digital</span>
             </span>
@@ -33,47 +33,54 @@ export function Footer() {
           </form>
         </div>
 
-        <div>
-          <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
-            Popular Categories
-          </h4>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            {CATEGORIES.slice(0, 8).map((c) => (
-              <li key={c.slug}>
-                <Link to="/category/$slug" params={{ slug: c.slug }} className="hover:text-primary">
-                  {c.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <div className="lg:col-span-3 grid grid-cols-2 gap-8 sm:grid-cols-3 lg:gap-12">
+          <div>
+            <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
+              Categories
+            </h4>
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              {CATEGORIES.slice(0, 6).map((c) => (
+                <li key={c.slug}>
+                  <Link to="/category/$slug" params={{ slug: c.slug }} className="hover:text-primary">
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div>
-          <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
-            Company
-          </h4>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            <li><Link to="/about" className="hover:text-primary">About Us</Link></li>
-            <li><Link to="/contact" className="hover:text-primary">Contact</Link></li>
-            <li><Link to="/advertise" className="hover:text-primary">Advertise With Us</Link></li>
-            <li><Link to="/write-for-us" className="hover:text-primary">Write For Us</Link></li>
-            <li><Link to="/privacy" className="hover:text-primary">Privacy Policy</Link></li>
-            <li><Link to="/terms" className="hover:text-primary">Terms & Conditions</Link></li>
-            <li><Link to="/disclaimer" className="hover:text-primary">Disclaimer</Link></li>
-            <li><Link to="/cookies" className="hover:text-primary">Cookie Policy</Link></li>
-          </ul>
+          <div>
+            <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
+              More Topics
+            </h4>
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              {CATEGORIES.slice(6, 12).map((c) => (
+                <li key={c.slug}>
+                  <Link to="/category/$slug" params={{ slug: c.slug }} className="hover:text-primary">
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-heading text-sm font-semibold uppercase tracking-wider text-foreground">
+              Company
+            </h4>
+            <ul className="mt-4 space-y-3 text-sm font-medium text-muted-foreground">
+              <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
+              <li><Link to="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link></li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <div className="border-t border-border">
-        <div className="container-page flex flex-col items-center justify-between gap-3 py-5 text-xs text-muted-foreground md:flex-row">
-          <p>© {year} Exemptia Digital. All rights reserved.</p>
-          <div className="flex items-center gap-5">
-            <a href="#" className="hover:text-primary">Twitter</a>
-            <a href="#" className="hover:text-primary">LinkedIn</a>
-            <a href="#" className="hover:text-primary">Facebook</a>
-            <a href="#" className="hover:text-primary">YouTube</a>
-          </div>
+        <div className="container-page py-6 text-center text-sm text-muted-foreground">
+          <p>© {year} Exemptia Digital. All rights reserved. Designed for operators.</p>
         </div>
       </div>
     </footer>

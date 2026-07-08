@@ -14,11 +14,11 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   return (
     <div>
-      <section className="border-b border-border bg-section/60">
-        <div className="container-page py-14">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-primary">Contact</p>
-          <h1 className="mt-2 font-heading text-4xl font-bold md:text-5xl">Get in touch</h1>
-          <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
+      <section className="border-b border-border bg-section/40 py-16 text-center">
+        <div className="container-page max-w-3xl mx-auto flex flex-col items-center">
+          <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary mb-4">Contact</span>
+          <h1 className="font-heading text-4xl font-extrabold md:text-5xl lg:text-6xl tracking-tight text-foreground">Get in touch</h1>
+          <p className="mt-6 text-lg md:text-xl text-muted-foreground">
             Story tips, pitches, partnerships — we read everything.
           </p>
         </div>

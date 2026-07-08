@@ -9,17 +9,6 @@ export function Sidebar() {
 
   return (
     <aside className="space-y-10">
-      <form onSubmit={(e) => e.preventDefault()} className="flex gap-2 rounded-full border border-border bg-background p-1.5 shadow-sm">
-        <input
-          type="search"
-          placeholder="Search the magazine…"
-          className="flex-1 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
-        />
-        <button className="rounded-full bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-wider text-primary-foreground hover:bg-primary/90">
-          Go
-        </button>
-      </form>
-
       <div>
         <h3 className="mb-4 border-b border-border pb-2 font-heading text-lg font-bold">Trending Articles</h3>
         <ol className="space-y-4">
@@ -39,7 +28,24 @@ export function Sidebar() {
         </ol>
       </div>
 
-      <AdBanner label="Sidebar Advertisement" size="square" />
+      <div className="relative overflow-hidden rounded-2xl border border-border group">
+        <img 
+          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" 
+          alt="Premium Course" 
+          className="h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+        <div className="absolute bottom-0 p-6 text-white">
+          <span className="mb-3 inline-block rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary-foreground">
+            Masterclass
+          </span>
+          <h3 className="mb-2 font-heading text-2xl font-bold leading-tight text-white drop-shadow-sm">Advanced Growth Tactics</h3>
+          <p className="mb-5 text-sm text-gray-200">Unlock the strategies used by top tech companies to scale revenue.</p>
+          <button className="rounded-full bg-white px-5 py-2.5 text-sm font-bold text-black hover:bg-gray-100 transition-colors">
+            Enroll Now
+          </button>
+        </div>
+      </div>
 
       <div>
         <h3 className="mb-4 border-b border-border pb-2 font-heading text-lg font-bold">Recent Posts</h3>

@@ -59,37 +59,71 @@ const AUTHORS: { name: string; title: string }[] = [
   { name: "Yuki Tanaka", title: "Social Media Editor" },
 ];
 
-// Unsplash-hosted royalty-free imagery, referenced by fixed photo IDs so URLs
-// stay stable. All neutral tech/business/creative themed — no medical imagery.
-const IMAGES = [
-  "photo-1518770660439-4636190af475", // circuit board
-  "photo-1461749280684-dccba630e2f6", // code monitor
-  "photo-1487058792275-0ad4aaf24ca7", // colorful code
-  "photo-1526374965328-7f61d4dc18c5", // matrix
-  "photo-1470071459604-3b5ec3a7fe05", // mountains laptop
-  "photo-1498050108023-c5249f4df085", // macbook code
-  "photo-1519389950473-47ba0277781c", // team laptops
-  "photo-1531297484001-80022131f5a1", // gray laptop
-  "photo-1488590528505-98d2b5aba04b", // turned on laptop
-  "photo-1518005020951-eccb494ad742", // architecture
-  "photo-1483058712412-4245e9b90334", // desk
-  "photo-1496307653780-42ee777d4833", // building
-  "photo-1449157291145-7efd050a4d0e", // architecture 2
-  "photo-1460574283810-2aab119d8511", // architecture 3
-  "photo-1439337153520-7082a56a81f4", // hall
-  "photo-1497604401993-f2e922e5cb0a", // building 4
-  "photo-1487958449943-2429e8be8625", // white concrete
-  "photo-1473177104440-ffee2f376098", // church-lookinginside
-  "photo-1721322800607-8c38375eef04", // living room
-  "photo-1618160702438-9b02ab6515c9", // orange
-  "photo-1721322800607-8c38375eef04",
-  "photo-1526374965328-5f61d4dc18c5",
-];
+// Unsplash-hosted royalty-free imagery, grouped by category for relevance.
+const CATEGORY_IMAGES: Record<string, string[]> = {
+  "artificial-intelligence": [
+    "photo-1620712943543-bcc4688e7485", "photo-1677442136019-21780ecad995",
+    "photo-1555255707-c07966088b7b", "photo-1518770660439-4636190af475",
+    "photo-1526374965328-7f61d4dc18c5", "photo-1675271591211-126ad94e495d",
+    "photo-1451187580459-43490279c0fa", "photo-1620712943543-bcc4688e7485",
+    "photo-1535223289827-42f1e9919769", "photo-1589254065878-42c9da997008",
+    "photo-1593508512255-86ab42a8e620", "photo-1507146426996-ef05306b995a",
+  ],
+  "marketing": [
+    "photo-1557838923-2985c318be48", "photo-1460925895917-afdab827c52f",
+    "photo-1432888498266-38ffec3eaf0a", "photo-1533750516457-a7f992034fec",
+    "photo-1542744173-8e7e53415bb0", "photo-1552664730-d307ca884978",
+    "photo-1517245386807-bb43f82c33c4", "photo-1499951360447-b19be8fe80f5",
+    "photo-1504868584819-f8e8b4b6d7e3", "photo-1553877522-43269d4ea984",
+    "photo-1486312338219-ce68d2c6f44d", "photo-1517048676732-d65bc937f952",
+    "photo-1551288049-bebda4e38f71", "photo-1533749047139-189de3cf06d3"
+  ],
+  "seo": [
+    "photo-1551288049-bebda4e38f71", "photo-1460925895917-afdab827c52f",
+    "photo-1504868584819-f8e8b4b6d7e3", "photo-1573164713988-8665fc963095",
+    "photo-1432888498266-38ffec3eaf0a", "photo-1516321318423-f06f85e504b3",
+    "photo-1454165804606-c3d57bc86b40", "photo-1486312338219-ce68d2c6f44d",
+    "photo-1556761175-5973dc0f32b7", "photo-1543286386-2e659306cd6c"
+  ],
+  "technology": [
+    "photo-1451187580459-43490279c0fa", "photo-1518770660439-4636190af475",
+    "photo-1550751827-4bd374c3f58b", "photo-1504384308090-c894fdcc538d",
+    "photo-1525547719571-a2d4ac8945e2", "photo-1519389950473-47ba0277781c",
+    "photo-1498050108023-c5249f4df085", "photo-1531297484001-80022131f5a1",
+    "photo-1488590528505-98d2b5aba04b", "photo-1518005020951-eccb494ad742",
+    "photo-1483058712412-4245e9b90334", "photo-1496307653780-42ee777d4833",
+  ],
+  "business": [
+    "photo-1486406146926-c627a92ad1ab", "photo-1600880292203-757bb62b4baf",
+    "photo-1507679799987-c73779587ccf", "photo-1454165804606-c3d57bc86b40",
+    "photo-1556761175-4b46a572b786", "photo-1522071820081-009f0129c71c",
+    "photo-1515169067868-5387ec356754", "photo-1559526324-4b87b5e36e44",
+    "photo-1542744173-8e7e53415bb0", "photo-1552664730-d307ca884978",
+  ],
+  "startups": [
+    "photo-1522071820081-009f0129c71c", "photo-1515169067868-5387ec356754",
+    "photo-1559526324-4b87b5e36e44", "photo-1531206715517-5c0ba140b2b8",
+    "photo-1556761175-4b46a572b786", "photo-1454165804606-c3d57bc86b40",
+    "photo-1542744173-8e7e53415bb0", "photo-1432888498266-38ffec3eaf0a",
+    "photo-1497215728101-856f4ea42174", "photo-1497366216548-37526070297c"
+  ],
+  "default": [
+    "photo-1498050108023-c5249f4df085", "photo-1531297484001-80022131f5a1",
+    "photo-1488590528505-98d2b5aba04b", "photo-1518005020951-eccb494ad742",
+    "photo-1483058712412-4245e9b90334", "photo-1496307653780-42ee777d4833",
+    "photo-1449157291145-7efd050a4d0e", "photo-1460574283810-2aab119d8511",
+    "photo-1439337153520-7082a56a81f4", "photo-1497604401993-f2e922e5cb0a",
+    "photo-1487958449943-2429e8be8625", "photo-1721322800607-8c38375eef04",
+    "photo-1618160702438-9b02ab6515c9", "photo-1517245386807-bb43f82c33c4"
+  ]
+};
 
-const HERO_IMAGES = IMAGES;
+const HERO_IMAGES = CATEGORY_IMAGES.default;
 
-function img(seed: number, w = 1600, h = 900) {
-  const id = IMAGES[seed % IMAGES.length];
+export function img(seed: number, categorySlug = "default", w = 1600, h = 900) {
+  const pool = CATEGORY_IMAGES[categorySlug] || CATEGORY_IMAGES.default;
+  // Use sequential indexing to absolutely guarantee no duplicates in short spans
+  const id = pool[seed % pool.length];
   return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&h=${h}&q=80`;
 }
 
@@ -340,7 +374,7 @@ function generatePosts(): Post[] {
         authorTitle: author.title,
         date,
         readingTime,
-        image: img(seed),
+        image: img(seed, cat.slug),
         content: buildContent(seed, title),
         featured: seed % 9 === 0,
         editorsPick: seed % 7 === 0,
@@ -354,7 +388,11 @@ function generatePosts(): Post[] {
   return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export const POSTS: Post[] = generatePosts();
+// Dynamically import JSON posts from NeuroSEO (or other webhook receivers)
+const importedFiles = import.meta.glob('../content/blog/*.json', { eager: true });
+const externalPosts: Post[] = Object.values(importedFiles).map((mod: any) => mod.default || mod);
+
+export const POSTS: Post[] = [...externalPosts, ...generatePosts()].sort((a, b) => (a.date < b.date ? 1 : -1));
 
 export const HERO_POST: Post = POSTS[0];
 

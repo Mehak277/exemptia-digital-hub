@@ -1,9 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useState } from "react";
 import { getPost, relatedPosts, formatDate, POSTS } from "@/data/posts";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { Sidebar } from "@/components/site/Sidebar";
 import { AdBanner } from "@/components/site/Section";
 import { Clock, Twitter, Facebook, Linkedin, LinkIcon } from "lucide-react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/article/$slug")({
   loader: ({ params }) => {
@@ -58,6 +62,29 @@ function ArticlePage() {
   const prev = POSTS[currentIndex + 1];
   const next = POSTS[currentIndex - 1];
 
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    
+    setIsSubscribing(true);
+    try {
+      await addDoc(collection(db, "subscribers"), {
+        email,
+        subscribedAt: serverTimestamp(),
+      });
+      toast.success("Successfully subscribed to the newsletter!");
+      setEmail("");
+    } catch (error) {
+      console.error("Error adding subscriber: ", error);
+      toast.error("Failed to subscribe. Please try again.");
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
   return (
     <article>
       {/* Breadcrumb + hero */}
@@ -103,28 +130,11 @@ function ArticlePage() {
 
       <div className="container-page py-10">
         <div className="mb-10 overflow-hidden rounded-2xl border border-border">
-          <img src={post.image} alt={post.title} className="aspect-[16/9] w-full object-cover" />
+          <img src={post.image} alt={post.title} className="w-full object-cover max-h-[400px] md:max-h-[500px]" />
         </div>
 
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div>
-            {/* Share bar */}
-            <div className="mb-8 flex items-center justify-between border-y border-border py-3">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                Share this article
-              </div>
-              <div className="flex items-center gap-2">
-                {[Twitter, Facebook, Linkedin, LinkIcon].map((Icon, i) => (
-                  <button
-                    key={i}
-                    aria-label="Share"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground hover:border-primary hover:text-primary"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </button>
-                ))}
-              </div>
-            </div>
 
             {/* TOC */}
             <aside className="mb-10 rounded-2xl border border-border bg-section p-5">
@@ -252,14 +262,21 @@ function ArticlePage() {
               <p className="mt-1 text-sm opacity-90">
                 Get the weekly Exemptia Digital brief — free, curated, no filler.
               </p>
-              <form onSubmit={(e) => e.preventDefault()} className="mt-4 flex flex-col gap-2 sm:flex-row">
+              <form onSubmit={handleSubscribe} className="mt-4 flex flex-col gap-2 sm:flex-row">
                 <input
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
-                  className="flex-1 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm placeholder:text-white/70 outline-none"
+                  required
+                  className="flex-1 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm placeholder:text-white/70 outline-none focus:border-white/50"
+                  disabled={isSubscribing}
                 />
-                <button className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-primary">
-                  Subscribe free
+                <button 
+                  disabled={isSubscribing}
+                  className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-primary disabled:opacity-70"
+                >
+                  {isSubscribing ? "Subscribing..." : "Subscribe free"}
                 </button>
               </form>
             </div>
