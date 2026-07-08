@@ -56,7 +56,7 @@ function CategoryPage() {
           )}
           <SectionHeader title={`All in ${category.name}`} kicker={`${posts.length} articles`} />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {posts.slice(1).map((p) => (
+            {posts.slice(1).map((p: import("@/data/posts").Post) => (
               <ArticleCard key={p.slug} post={p} size="md" />
             ))}
           </div>
