@@ -356,8 +356,8 @@ function generatePosts(): Post[] {
 
   for (const cat of CATEGORIES) {
     const titles = TITLE_POOL[cat.slug] ?? TITLE_POOL["marketing"];
-    for (let i = 0; i < titles.length; i++) {
-      const title = titles[i];
+    for (let i = 0; i < 6; i++) {
+      const title = titles[i % titles.length];
       const author = AUTHORS[seed % AUTHORS.length];
       const daysAgo = (seed * 3 + i) % 240;
       const date = new Date(now - daysAgo * 24 * 60 * 60 * 1000).toISOString();

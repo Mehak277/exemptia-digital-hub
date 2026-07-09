@@ -19,8 +19,8 @@ export function Header() {
   const mainNav = [
     { label: "Home", to: "/" },
     { label: "About", to: "/about" },
+    { label: "Latest", to: "/latest" },
     { label: "Blog", to: "/categories" },
-    { label: "Contact", to: "/contact" },
   ] as const;
 
   return (
